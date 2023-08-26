@@ -49,3 +49,10 @@ puts estados
 puts estados [1..2]
 puts estados [0..2]
 
+#para imprimir de forma invertida, utilizamos os índices de forma negativa.
+#no exemplo abaixo, o -1 imprimirá o último elemento
+puts estados[-1]
+
+#imprime o penúltimo
+puts estados[-2]
+
