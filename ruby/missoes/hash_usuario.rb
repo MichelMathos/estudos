@@ -1,25 +1,25 @@
 #Informe 3 chaves e os elementos que pertencerão a cada chave:"
 print "Chave 1: "
-ch1 = gets
+key1 = gets
 
 print "Elemento 1: "
-el1 = gets
+value1 = gets
 
 print "Chave 2: "
-ch2 = gets
+key2 = gets
 
 print "Elemento 2: "
-el2 = gets
+value2 = gets
 
 print "Chave 3: "
-ch3 = gets
+key3 = gets
 
 print "Elemento 3: "
-el3 = gets
+value3 = gets
 
-hash = { ch1: el1, ch2: el2, ch3: el3}
+hash = { key1 => value1, key2 => value2, key3 => value3}
 
-for elementos in hash
-    hash.eath {|chave, valor|}
-    puts "Uma das chaves é #{chave} e seu valor é #{valor}."
+hash.each do |key, value| #percorrendo a hash
+  puts "Uma das chaves é #{key} e seu valor é #{value}"
 end
+
