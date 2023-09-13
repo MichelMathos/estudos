@@ -45,8 +45,11 @@ class Aluno
         @nome = nome #@nome é o atrbuto :nome
         @idade = idade #@idade é o atributo :idade
     end
+
+    def mostrar_dados
+        puts "Nome: #{self.nome} \nIdade: #{@idade}" #tanto faz utilizar self. ou @
+    end
 end
 
 a1 = Aluno.new("Michel", 42)
-puts a1.nome
-puts a1.idade
+a1.mostrar_dados
