@@ -25,8 +25,24 @@ class Cachorro < Animal # o sinal < significa que Cachorro é uma classe filha d
         puts "Au, au, au! = Eu sou a classe filha de Animal"
     end
 end
+
+class Gato < Cachorro # o sinal < significa que Gato é uma classe filha da classe Cachorro
+
+    def initialize(nome, raca) # aqui estamos criando o conceito de extends, ou seja, acrescentando o atributo raca, que não estava pŕesente na class Animal
+        super(nome, raca) #super indica a herança dos atributos da classe Cachorro, que por sua vez herda da classe Animal.
+    end
+
+    def comunicar # Aqui tem o conceito de polimorfismo
+        puts "Miau! = Eu sou a classe filha de Cachorro"
+    end
+end
 # O conceito de polimorfismo está em sobre escrever uma função definida pela superclasse
 bob = Cachorro.new("Bob", "Poodle")
 puts bob.nome
 puts bob.raca
 bob.comunicar # por polimorfismo, tom sobreescreve o metodo comunicar
+puts "---------"
+tom = Gato.new("Tom", "Siamês")
+puts tom.nome
+puts tom.raca
+tom.comunicar # por polimorfismo, tom sobreescreve o metodo comunicar
