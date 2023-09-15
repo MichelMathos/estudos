@@ -6,6 +6,14 @@ class Locador
         @phone = phone
         @email = email
     end
+
+    def display
+        puts "\nDados Pessoais:"
+        puts "Nome: #{@name}"
+        puts "Endereço: #{@address}"
+        puts "Telefone: #{@phone}"
+        puts "E-mail: #{@email}"
+    end
 end
 
 class PhysicalPerson < Locador
@@ -13,6 +21,11 @@ class PhysicalPerson < Locador
     def initialize(name, address, phone, email, cpf)
         super(name, address, phone, email)
         @cpf = cpf
+    end
+
+    def display
+        super
+        puts "CPF: #{@cpf}"
     end
 end
 
@@ -22,11 +35,16 @@ class LegalPerson < Locador
         super(name, address, phone, email)
         @cnpj = cnpj
     end
+
+    def display
+        super
+        puts "CNPJ: #{@cnpj}"
+    end
 end
 
-puts "PREENCHA O FORMULÁRIO COM SEUS DADOS PESSOAIS: "
+puts "\nPREENCHA O FORMULÁRIO COM SEUS DADOS PESSOAIS:"
 
-print "Nome: "
+print "\nNome: "
 name = gets.chomp 
 
 print "Endereço: "
@@ -41,11 +59,11 @@ email = gets.chomp
 choice = nil
 
 while choice != "F" && choice != "J"
-  puts "Você é uma Pessoa Física (F) ou Jurídica (J)?"
-  choice = gets.chomp.strip.upcase  # Use upcase para garantir que a entrada esteja em letras maiúsculas
+  puts "\nVocê é uma Pessoa Física (F) ou Jurídica (J)?"
+  choice = gets.chomp.strip.upcase  
 
   if choice != "F" && choice != "J"
-    puts "Opção inválida. Insira 'F' para Pessoa Física ou 'J' para Pessoa Jurídica."
+    puts "\nOpção inválida. Insira 'F' para Pessoa Física ou 'J' para Pessoa Jurídica."
   end
 end
 
@@ -54,25 +72,14 @@ if choice == "F"
   cpf = gets.chomp
 
   physicalPerson = PhysicalPerson.new(name, address, phone, email, cpf)
-
-  puts "Dados Pessoais:"
-  puts "Nome: #{physicalPerson.name}"
-  puts "Endereço: #{physicalPerson.address}"
-  puts "Telefone: #{physicalPerson.phone}"
-  puts "E-mail: #{physicalPerson.email}"
-  puts "CPF: #{physicalPerson.cpf}"
+  physicalPerson.display 
 elsif choice == "J"
   print "CNPJ: "
   cnpj = gets.chomp
 
   legalPerson = LegalPerson.new(name, address, phone, email, cnpj)
+  legalPerson.display
   
-  puts "Dados Pessoais:"
-  puts "Nome: #{legalPerson.name}"
-  puts "Endereço: #{legalPerson.address}"
-  puts "Telefone: #{legalPerson.phone}"
-  puts "E-mail: #{legalPerson.email}"
-  puts "CNPJ: #{legalPerson.cnpj}"
 else
-  puts "Opção inválida!"
+  puts "\nOpção inválida!"
 end
