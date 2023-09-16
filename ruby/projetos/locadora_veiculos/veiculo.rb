@@ -1,5 +1,5 @@
 class Vehicle
-    attr_reader :brand :model :color :year
+    attr_reader :brand, :model, :color, :year
 
     def initialize(category, brand, model, color, year)
         @category = category
@@ -7,6 +7,24 @@ class Vehicle
         @model = model
         @color = color
         @year = year
+    end
+
+    def vehicleData
+        puts "Categoria: "
+        category = gets.chomp
+
+        puts "Marca: "
+        brand = gets.chomp
+
+        puts "Modelo: "
+        model = gets.chomp
+
+        puts "Cor: "
+        color = gets.chomp
+
+        puts "Ano: "
+        year = gets.chomp.to_i
+        { category: @category, brand: @brand, model: @model, color: @color, year: @year }
     end
 
     def display
@@ -19,21 +37,21 @@ class Vehicle
     end
 end
 
-class Car
+class Car < Vehicle
     attr_reader :doors
 
     def initialize(category, brand, model, color, year, doors)
         super(category, brand, model, color, year)
-        @door = doors
+        #@door = doors
     end
 
     def display
         super
-        puts "Portas: #{doors}"
+        #puts "Portas: #{doors}"
     end
 end
 
-class motorcycle
+class Motorcycle < Vehicle
     def initialize(category, brand, model, color, year)
         super(category, brand, model, color, year)
     end
@@ -45,22 +63,7 @@ end
 
     puts "\nPREENCHA O FORMULÁRIO COM OS DADOS DO VEÍCULO:\n"
     
-    puts "Categoria: "
-    category = gets.chomp
-
-    puts "Marca: "
-    brand = gets.chomp
-
-    puts "Modelo: "
-    model = gets.chomp
-
-    puts "Cor: "
-    color = gets.chomp
-
-    puts "Ano: "
-    year = gets.chomp
-
-    choice = nill
+        choice = nil
 
     while choice != "C" && choice != "M"
         puts "O tipo de veículo é carro (C) ou moto (M)?"
@@ -71,17 +74,20 @@ end
         end
     end
 
-    if choice == "C"
-        print "Quantas portas?"
-        doors = gets.chomp
+    vehicle =Vehicle.new(nil, nil, nil, nil, nil)
+    vehicle_data = vehicle.vehicleData
 
-        car = Car.new(category, brand, model, color, year)
+    if choice == "C"
+        puts "Veículo: Carro"
+        print "Quantas portas?"
+        doors = gets.chomp.to_i
+        car = Car.new(vehicle_data[:category], vehicle_data[:brand], vehicle_data[:model], vehicle_data[:color], vehicle_data[:year])
+        #car.vehicleData
         car.display
     elsif choice == "M"
-        motorcycle = Motorcycle.new(category, brand, model, color, year)
+        puts "Veículo: Moto"
+        motorcycle = Motorcycle.new(vehicle_data[:category], vehicle_data[:brand], vehicle_data[:model], vehicle_data[:color], vehicle_data[:year])
         motorcycle.display
-
     else
         puts "Opção inválida!"
     end
-
