@@ -37,8 +37,51 @@ class motorcycle
     def initialize(category, brand, model, color, year)
         super(category, brand, model, color, year)
     end
-     def display
+
+    def display
         super
-     end
     end
+end
+
+    puts "\nPREENCHA O FORMULÁRIO COM OS DADOS DO VEÍCULO:\n"
     
+    puts "Categoria: "
+    category = gets.chomp
+
+    puts "Marca: "
+    brand = gets.chomp
+
+    puts "Modelo: "
+    model = gets.chomp
+
+    puts "Cor: "
+    color = gets.chomp
+
+    puts "Ano: "
+    year = gets.chomp
+
+    choice = nill
+
+    while choice != "C" && choice != "M"
+        puts "O tipo de veículo é carro (C) ou moto (M)?"
+        choice = gets.chomp.strip.upcase
+
+        if choice != "C" && choice != "M"
+            puts "Opção inválida! Insira 'C' para Carro ou 'M' para Moto."
+        end
+    end
+
+    if choice == "C"
+        print "Quantas portas?"
+        doors = gets.chomp
+
+        car = Car.new(category, brand, model, color, year)
+        car.display
+    elsif choice == "M"
+        motorcycle = Motorcycle.new(category, brand, model, color, year)
+        motorcycle.display
+
+    else
+        puts "Opção inválida!"
+    end
+
