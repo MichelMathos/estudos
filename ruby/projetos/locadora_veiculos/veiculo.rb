@@ -24,16 +24,17 @@ class Vehicle
 
         puts "Ano: "
         year = gets.chomp.to_i
-        { category: @category, brand: @brand, model: @model, color: @color, year: @year }
+        #{ category: @category, brand: @brand, model: @model, color: @color, year: @year }
     end
 
     def display
-        puts "Dados do veículo:"
-        puts "Categoria: #{category}"
-        puts "Marca: #{@brand}"
-        puts "Modelo: #{@model}"
-        puts "Cor: #{color}"
-        puts "Ano: #{year}"
+        super
+        #puts "Dados do veículo:"
+        #puts "Categoria: #{@category}"
+        #puts "Marca: #{@brand}"
+        #puts "Modelo: #{@model}"
+        #puts "Cor: #{@color}"
+        #puts "Ano: #{@year}"
     end
 end
 
@@ -74,7 +75,7 @@ end
         end
     end
 
-    vehicle =Vehicle.new(nil, nil, nil, nil, nil)
+    vehicle = Vehicle.new(@category, @brand, @model, @color, @year)
     vehicle_data = vehicle.vehicleData
 
     if choice == "C"
@@ -86,7 +87,7 @@ end
         car.display
     elsif choice == "M"
         puts "Veículo: Moto"
-        motorcycle = Motorcycle.new(vehicle_data[:category], vehicle_data[:brand], vehicle_data[:model], vehicle_data[:color], vehicle_data[:year])
+        motorcycle = Motorcycle.new(@category, @brand, @model, @color, @year)
         motorcycle.display
     else
         puts "Opção inválida!"
