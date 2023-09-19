@@ -75,19 +75,20 @@ end
         end
     end
 
-    vehicle = Vehicle.new(@category, @brand, @model, @color, @year)
-    vehicle_data = vehicle.vehicleData
+    #vehicle = Vehicle.new(@category, @brand, @model, @color, @year)
+    #vehicle_data = vehicle.vehicleData
 
     if choice == "C"
         puts "Veículo: Carro"
-        print "Quantas portas?"
+        print "Quantas portas? "
         doors = gets.chomp.to_i
-        car = Car.new(vehicle_data[:category], vehicle_data[:brand], vehicle_data[:model], vehicle_data[:color], vehicle_data[:year])
-        #car.vehicleData
+        car = Car.new(category, brand, model, color, year)
+        car.vehicleData
         car.display
     elsif choice == "M"
         puts "Veículo: Moto"
-        motorcycle = Motorcycle.new(@category, @brand, @model, @color, @year)
+        motorcycle = Motorcycle.new(category, brand, model, color, year)
+        motorcycle.vehicleData
         motorcycle.display
     else
         puts "Opção inválida!"
