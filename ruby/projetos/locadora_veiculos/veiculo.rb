@@ -1,5 +1,6 @@
+# Definindo a superclasse Vehicle e abaixo seus atributos e funções
 class Vehicle
-    attr_reader :brand, :model, :color, :year
+    attr_reader :category, :brand, :model, :color, :year
 
     def initialize(category, brand, model, color, year)
         @category = category
@@ -9,87 +10,86 @@ class Vehicle
         @year = year
     end
 
+    # Esta função tem o objetivo de coletar as informações do usuário
     def vehicleData
-        puts "Categoria: "
-        category = gets.chomp
+        print "Categoria: "
+        @category = gets.chomp
 
-        puts "Marca: "
-        brand = gets.chomp
+        print "Marca: "
+        @brand = gets.chomp
 
-        puts "Modelo: "
-        model = gets.chomp
+        print "Modelo: "
+        @model = gets.chomp
 
-        puts "Cor: "
-        color = gets.chomp
+        print "Cor: "
+        @color = gets.chomp
 
-        puts "Ano: "
-        year = gets.chomp.to_i
-        #{ category: @category, brand: @brand, model: @model, color: @color, year: @year }
+        print "Ano: "
+        @year = gets.chomp.to_i
     end
 
+    # Esta função tem o papel de mostrar na tela as informações coletadas
     def display
-        super
-        #puts "Dados do veículo:"
-        #puts "Categoria: #{@category}"
-        #puts "Marca: #{@brand}"
-        #puts "Modelo: #{@model}"
-        #puts "Cor: #{@color}"
-        #puts "Ano: #{@year}"
+        puts "Categoria: #{@category}"
+        puts "Marca: #{@brand}"
+        puts "Modelo: #{@model}"
+        puts "Cor: #{@color}"
+        puts "Ano: #{@year}"
     end
 end
 
+# Definindo a classe Car como herdeira da superclasse Vehicle, acrescentando o atributo @doors
 class Car < Vehicle
     attr_reader :doors
 
     def initialize(category, brand, model, color, year, doors)
         super(category, brand, model, color, year)
-        #@door = doors
+        @doors = doors
     end
 
     def display
-        super
-        #puts "Portas: #{doors}"
+        super 
+        puts "Quantidade de portas: #{@doors}"
     end
 end
 
+# Definindo a classe Motorcycle como herdeira da superclasse Vehicle
 class Motorcycle < Vehicle
     def initialize(category, brand, model, color, year)
         super(category, brand, model, color, year)
     end
+end
 
-    def display
-        super
+puts "\nPREENCHA O FORMULÁRIO COM OS DADOS DO VEÍCULO:\n"
+
+choice = nil
+
+# Enquanto choice receber dados diferentes de C ou M, imprimir na tela a orientação correta
+while choice != "C" && choice != "M"
+    puts "O tipo de veículo é carro (C) ou moto (M)?"
+    choice = gets.chomp.strip.upcase # Se acaso o usuário digite a letra em minúsculo, essa automatiocamente será convertidda em maiúsculo com a função .upcase
+
+    if choice != "C" && choice != "M"
+        puts "Opção inválida! Insira 'C' para Carro ou 'M' para Moto."
     end
 end
 
-    puts "\nPREENCHA O FORMULÁRIO COM OS DADOS DO VEÍCULO:\n"
-    
-        choice = nil
-
-    while choice != "C" && choice != "M"
-        puts "O tipo de veículo é carro (C) ou moto (M)?"
-        choice = gets.chomp.strip.upcase
-
-        if choice != "C" && choice != "M"
-            puts "Opção inválida! Insira 'C' para Carro ou 'M' para Moto."
-        end
-    end
-
-    #vehicle = Vehicle.new(@category, @brand, @model, @color, @year)
-    #vehicle_data = vehicle.vehicleData
-
-    if choice == "C"
-        puts "Veículo: Carro"
-        print "Quantas portas? "
-        doors = gets.chomp.to_i
-        car = Car.new(category, brand, model, color, year)
-        car.vehicleData
-        car.display
-    elsif choice == "M"
-        puts "Veículo: Moto"
-        motorcycle = Motorcycle.new(category, brand, model, color, year)
-        motorcycle.vehicleData
-        motorcycle.display
-    else
-        puts "Opção inválida!"
-    end
+# Se o usuário informou corretamente as letras C ou M, será possível digitar os demaios dados do veículo
+# e posteriormente será impresso na tela as informações inseridas pelo usuário.
+if choice == "C"
+    print "Quantas portas? "
+    doors = gets.chomp.to_i
+    car = Car.new("", "", "", "", 0, doors)
+    car.vehicleData
+    puts "\n====| DADOS DO VEÍCULO LOCADO |===="
+    puts "Veículo: Carro"
+    car.display
+elsif choice == "M"
+    motorcycle = Motorcycle.new("", "", "", "", 0)
+    motorcycle.vehicleData
+    puts "\n====| DADOS DO VEÍCULO LOCADO |===="
+    puts "Veículo: Moto"
+    motorcycle.display
+else
+    puts "Opção inválida!"
+end
