@@ -1,11 +1,10 @@
 # Definindo a superclasse Vehicle e abaixo seus atributos e funções
 class Vehicle
-    attr_reader :category, :brand, :model, :color, :year
+    attr_reader :category, :brand, :color, :year
 
-    def initialize(category, brand, model, color, year)
+    def initialize(category, brand, color, year)
         @category = category
         @brand = brand
-        @model = model
         @color = color
         @year = year
     end
@@ -18,9 +17,6 @@ class Vehicle
         print "Marca: "
         @brand = gets.chomp
 
-        print "Modelo: "
-        @model = gets.chomp
-
         print "Cor: "
         @color = gets.chomp
 
@@ -32,7 +28,6 @@ class Vehicle
     def display
         puts "Categoria: #{@category}"
         puts "Marca: #{@brand}"
-        puts "Modelo: #{@model}"
         puts "Cor: #{@color}"
         puts "Ano: #{@year}"
     end
@@ -42,8 +37,8 @@ end
 class Car < Vehicle
     attr_reader :doors
 
-    def initialize(category, brand, model, color, year, doors)
-        super(category, brand, model, color, year)
+    def initialize(category, brand, color, year, doors)
+        super(category, brand, color, year)
         @doors = doors
     end
 
@@ -55,8 +50,8 @@ end
 
 # Definindo a classe Motorcycle como herdeira da superclasse Vehicle
 class Motorcycle < Vehicle
-    def initialize(category, brand, model, color, year)
-        super(category, brand, model, color, year)
+    def initialize(category, brand, color, year)
+        super(category, brand, color, year)
     end
 end
 
@@ -79,13 +74,14 @@ end
 if choice == "C"
     print "Quantas portas? "
     doors = gets.chomp.to_i
-    car = Car.new("", "", "", "", 0, doors)
+    car = Car.new("", "", "", 0, doors)
     car.vehicleData
     puts "\n====| DADOS DO VEÍCULO LOCADO |===="
     puts "Veículo: Carro"
     car.display
+
 elsif choice == "M"
-    motorcycle = Motorcycle.new("", "", "", "", 0)
+    motorcycle = Motorcycle.new("", "", "", 0)
     motorcycle.vehicleData
     puts "\n====| DADOS DO VEÍCULO LOCADO |===="
     puts "Veículo: Moto"
