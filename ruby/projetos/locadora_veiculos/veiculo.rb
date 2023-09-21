@@ -55,6 +55,13 @@ class Motorcycle < Vehicle
     end
 end
 
+# Definindo a variável daily_rate para torná-la acessível
+daily_rate = case choice
+            when "C" then 200.0
+            when "M" then 50.0
+            else 0.0
+            end
+
 puts "\nPREENCHA O FORMULÁRIO COM OS DADOS DO VEÍCULO:\n"
 
 choice = nil
@@ -80,12 +87,67 @@ if choice == "C"
     puts "Veículo: Carro"
     car.display
 
+    # Criando um objeto de pagamento em dinheiro para carro
+    payment = Cash.new(choice)
+    payment.display
+
+     # Escolhendo a forma de pagamento
+     puts "\nEscolha a forma de pagamento:"
+     puts "1. Débito"
+     puts "2. Crédito (até 6x com juros)"
+     puts "3. Dinheiro"
+     payment_choice = gets.chomp.to_i
+ 
+     case payment_choice
+     when 1
+         payment = DebitCard.new(choice)
+     when 2
+         print "Número de parcelas até 6x): "
+         installments = gets.chomp.to_i
+         payment = CreditCard.new(choice, installments)
+     when 3
+         payment = Cash.new(choice)
+     else
+         puts "Opção de pagamento inválida!"
+         return
+     end
+ 
+     payment.display
+
 elsif choice == "M"
     motorcycle = Motorcycle.new("", "", "", 0)
     motorcycle.vehicleData
     puts "\n====| DADOS DO VEÍCULO LOCADO |===="
     puts "Veículo: Moto"
     motorcycle.display
+
+    # Criando um objeto de pagamento em dinheiro para carro
+    payment = Cash.new(choice)
+    payment.display
+
+   
+     # Escolhendo a forma de pagamento
+     puts "\nEscolha a forma de pagamento:"
+     puts "1. Débito"
+     puts "2. Crédito (até 6x com juros)"
+     puts "3. Dinheiro"
+     payment_choice = gets.chomp.to_i
+ 
+     case payment_choice
+     when 1
+         payment = DebitCard.new(choice)
+     when 2
+         print "Número de parcelas até 6x): "
+         installments = gets.chomp.to_i
+         payment = CreditCard.new(choice, installments)
+     when 3
+         payment = Cash.new(choice)
+     else
+         puts "Opção de pagamento inválida!"
+         return
+     end
+ 
+     payment.display
 else
     puts "Opção inválida!"
 end
