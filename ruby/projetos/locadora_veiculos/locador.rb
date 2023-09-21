@@ -46,7 +46,6 @@ puts "\nPREENCHA O FORMULÁRIO COM SEUS DADOS PESSOAIS:"
 
 print "\nNome: "
 name = gets.chomp 
-
 print "Endereço: "
 address = gets.chomp
 
