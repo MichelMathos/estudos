@@ -1,45 +1,41 @@
-#require_relative 'veiculo'
-
-class Payment
-    attr_reader :amount
-
-    def initialize (amount)
-        @amount = amount
+class Pagamento
+    attr_reader :valor
+  
+    def initialize(valor)
+      @valor = valor
     end
-end
-
-class Cash < Payment
-    def initialize
-        super(daily_rate)
+  end
+  
+  class PagamentoEmDinheiro < Pagamento
+    def exibir
+      puts "Pagamento em dinheiro - valor da diária: R$#{@valor}"
     end
-
-    def display
-        puts "Pagamento em dinheiro - valor da diária: R$#{@amount}"
+  end
+  
+  class PagamentoComCartaoDeDebito < Pagamento
+    def exibir
+      puts "Pagamento com cartão de débito - Valor da diária: R$#{@valor}"
     end
-end
-
-class DebitCard < Payment
-    def initialize
-        super(daily_rate) # Acessa a variável daily_rate definida em veiculo.rb
+  end
+  
+  class PagamentoComCartaoDeCredito < Pagamento
+    attr_reader :parcelas
+  
+    def initialize(valor, parcelas)
+      super(valor)
+      @parcelas = parcelas
     end
-
-    def display
-        puts "Pagamento com cartão de débito - Valor da diária: R$#{@amount}"
+  
+    def calcula_juros
+      if parcelas > 1
+        juros = valor * 0.02 # Taxa de juros mensal de 2%
+        return juros * parcelas
+      end
+      0
     end
-end
-
-class CreditCard < Payment
-    def initialize(installments)
-        # Adicionar juros para pagamento em crédito com mais de uma parcela
-        if installments > 1
-            interest_rate = 0.98 / 100.0 # Taxa de juros mensal de 0.98%
-            daily_rate += daily_rate * interest_rate
-        end
-
-        super(daily_rate) # Acessa a variável daily_rate definida em veiculo.rb
+  
+    def exibir
+      puts "Pagamento com cartão de crédito - Valor da diária: R$#{@valor} (#{@parcelas}x)"
     end
-
-    def display
-        puts "Pagamento com cartão de crédito - Valor da diária: R$#{@amount}"
-    end
-end
+  end
+  
