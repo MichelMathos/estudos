@@ -38,4 +38,3 @@ class Pagamento
       puts "Pagamento com cartão de crédito - Valor da diária: R$#{@valor} (#{@parcelas}x)"
     end
   end
-  
