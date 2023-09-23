@@ -32,7 +32,7 @@ class Pagamento
         return juros * parcelas
       end
       0
-    end
+    end 
   
     def exibir
       puts "Pagamento com cartão de crédito - Valor da diária: R$#{@valor} (#{@parcelas}x)"
