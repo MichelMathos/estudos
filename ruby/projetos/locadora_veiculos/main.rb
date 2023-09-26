@@ -20,7 +20,7 @@ escolha = nil
 
 # Loop que ficará rodando enquanto não for inrformado se o locador é Pessoa Física ou Jurídica
 while escolha != "F" && escolha != "J"
-  puts "\n É uma pessoa Física (F) ou Jurídica (J)? "
+  print "\nÉ uma pessoa Física (F) ou Jurídica (J)? "
   escolha = gets.chomp.strip.upcase
 
   if escolha != "F" && escolha != "J"
@@ -50,15 +50,15 @@ marca = gets.chomp
 print "Digite a cor do veículo: "
 cor = gets.chomp
 print "Digite o ano do veículo: "
-ano = gets.chomp_i
+ano = gets.chomp.to_i
 
 veiculo = nil
 
 if categoria == "C"
   print "Digite a quantidade de portas do carro: "
-  portas = gets.chomp_i
+  portas = gets.chomp.to_i
 
-  veiculo = Carro.new( categoria, marca, cor, cor, ano, portas )
+  veiculo = Carro.new( categoria, marca, cor, ano, portas )
 elsif categoria == "M"
   veiculo = Moto.new( categoria, marca, cor, ano)
 
@@ -74,12 +74,17 @@ pagamento_escolha = gets.chomp.to_i
 
 pagamento = nil
 
-case pagamento_escolha
+while pagamento_escolha != 1 && pagamento_escolha !=2 && pagamento_escolha != 3
+  puts "Opção inválida! Escolha uma das alternativas: n1. Débito \n2. Crédito (até 6X com juros de 2% a.m) \n3. Dinheiro"
+  pagamento_escolha = gets.chomp.to_i
+end
+
+  case pagamento_escolha
 when 1
   pagamento = PagamentoComCartaoDeDebito.new( veiculo.valor_diaria )
 when 2
   print "Número de parcelas (até 6X): "
-  parcelas = gets.chomp_i
+  parcelas = gets.chomp.to_i
   pagamento = PagamentoComCartaoDeCredito.new( veiculo.valor_diaria, parcelas )
 when 3
   pagamento = PagamentoEmDinheiro.new( veiculo.valor_diaria )
@@ -92,15 +97,15 @@ end
 puts "\n====================| Detalhes da Locação |===================="
 print "\nDigite a data de retirada (DD/MM/AAAA): "
 data_retirada = gets.chomp
-print "\Digite a data de retirada (DD/MM/AAAA): "
+print "\Digite a data de devolução (DD/MM/AAAA): "
 data_devolucao = gets.chomp
 print "\Digite o valor inicial da diária de locação: "
-valor_inicial_locacao = gets.chomp_f
+valor_inicial_locacao = gets.chomp.to_f
 
 # Calculo de quantos dias serão locados
 data_retirada  =Date.strptime( data_retirada, "%d/%m/%y" )
 data_devolucao = Date.strptime( data_devolucao, "%d/%m/%y" )
-dias_de_devolucao = ( data_devolucao - data_retirada ).to_i
+dias_de_locacao = ( data_devolucao - data_retirada ).to_i
 
 # Cálculo do valor total da locação
 valor_total_locacao = valor_inicial_locacao + ( dias_de_locacao * veiculo.valor_diaria )
@@ -119,7 +124,7 @@ veiculo.exibir
 puts "\nPagamento:"
 pagamento.exibir
 puts "\nData de Retirada: #{ data_retirada.strftime( "%d/%m/%y" )}"
-puts "Data de Devolução: #{ data_devolucao.strftime( "%d/%m%y" )}"
+puts "Data de Devolução: #{ data_devolucao.strftime( "%d/%m/%y" )}"
 puts "Número de Dias de Locação: #{ dias_de_locacao }"
 puts ""
 
