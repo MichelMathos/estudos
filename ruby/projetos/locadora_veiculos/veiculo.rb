@@ -10,9 +10,9 @@ class Veiculo
   
     def valor_diaria
       case categoria.downcase
-      when "carro"
+      when "c"
         200.0 # Valor da diária para carros
-      when "moto"
+      when "M"
         50.0 # Valor da diária para motos
       else
         0.0 # Categoria inválida

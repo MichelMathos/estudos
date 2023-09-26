@@ -17,7 +17,6 @@ class Pagamento
       puts "Pagamento com cartão de débito - Valor da diária: R$#{@valor}"
     end
   end
-  
   class PagamentoComCartaoDeCredito < Pagamento
     attr_reader :parcelas
   
@@ -26,9 +25,9 @@ class Pagamento
       @parcelas = parcelas
     end
   
-    def calcula_juros
+    def calcula_juros(dias_de_locacao)
       if parcelas > 1
-        juros = valor * 0.02 # Taxa de juros mensal de 2%
+        juros = valor * 0.02 * dias_de_locacao # Taxa de juros mensal de 2%
         return juros * parcelas
       end
       0
@@ -38,3 +37,4 @@ class Pagamento
       puts "Pagamento com cartão de crédito - Valor da diária: R$#{@valor} (#{@parcelas}x)"
     end
   end
+  

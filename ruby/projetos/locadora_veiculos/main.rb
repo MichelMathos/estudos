@@ -128,11 +128,11 @@ data_devolucao = Date.strptime(data_devolucao, "%d/%m/%Y")
 dias_de_locacao = (data_devolucao - data_retirada).to_i
 
 # Cálculo do valor total da locação
-valor_total_locacao = valor_inicial_locacao + (dias_de_locacao * veiculo.valor_diaria)
+valor_total_locacao = valor_inicial_locacao * dias_de_locacao
 
 # Aplicando os juros no pagamento se for pagamento com cartão de crédito
 if forma_pagamento == 2
-  valor_total_locacao += pagamento.calcula_juros
+  valor_total_locacao += pagamento.calcula_juros(dias_de_locacao)
 end
 
 # Relatório da locação
