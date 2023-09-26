@@ -32,16 +32,16 @@ class Veiculo
   end
   
   class Carro < Veiculo
-    attr_reader :doors
+    attr_reader :portas
   
-    def initialize(categoria, marca, cor, ano, doors)
+    def initialize(categoria, marca, cor, ano, portas)
       super(categoria, marca, cor, ano)
-      @doors = doors
+      @portas = portas
     end
   
     def exibir
       super
-      puts "Quantidade de portas: #{@doors}"
+      puts "Quantidade de portas: #{@portas}"
     end
   end
   
