@@ -103,8 +103,8 @@ print "\Digite o valor inicial da diária de locação: "
 valor_inicial_locacao = gets.chomp.to_f
 
 # Calculo de quantos dias serão locados
-data_retirada  =Date.strptime( data_retirada, "%d/%m/%y" )
-data_devolucao = Date.strptime( data_devolucao, "%d/%m/%y" )
+data_retirada  =Date.strptime( data_retirada, "%d/%m/%Y" )
+data_devolucao = Date.strptime( data_devolucao, "%d/%m/%Y" )
 dias_de_locacao = ( data_devolucao - data_retirada ).to_i
 
 # Cálculo do valor total da locação
@@ -116,16 +116,15 @@ if pagamento_escolha == 2
 end
 
 # Relatório da locação
-puts "\n====================| Resmo da Locação |===================="
+puts "\n====================| Resumo da Locação |===================="
 puts "Locador:"
 locador.exibir
 puts "\nVeículo Locado:"
 veiculo.exibir
 puts "\nPagamento:"
 pagamento.exibir
-puts "\nData de Retirada: #{ data_retirada.strftime( "%d/%m/%y" )}"
-puts "Data de Devolução: #{ data_devolucao.strftime( "%d/%m/%y" )}"
+puts "\nData de Retirada: #{ data_retirada.strftime( "%d/%m/%Y" )}"
+puts "Data de Devolução: #{ data_devolucao.strftime( "%d/%m/%Y" )}"
 puts "Número de Dias de Locação: #{ dias_de_locacao }"
 puts ""
-
 
