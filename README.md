@@ -2,7 +2,9 @@
 
 ## Descrição
 
-Este projeto consiste em um sistema de locadora de veículos na linguiagem Ruby. Ele permite que o usuário do sistema cadastre locador, veículo e efetue a locação. O sistema calcula o valor total da locação com base em critérios como o tipo de veículo, a quantidade de diárias e a forma de pagamento.
+Este projeto consiste em um sistema de locadora de veículos na linguagem Ruby no modo puro, desenvolvido afim de praticar os conhecimentos adquiridos até o presente momento. 
+O sistema permite que seu usuário cadastre locador, veículo e efetue a locação. 
+O sistema calcula o valor total da locação com base em critérios como o tipo de veículo, a quantidade de diárias e a forma de pagamento.
 
 ## Classes
 
@@ -44,3 +46,45 @@ Este projeto consiste em um sistema de locadora de veículos na linguiagem Ruby.
 - Atributo: Valor
 - Métodos: exibir (exibe os dados do pagamento)
 
+#### PagamentoEmDinheiro
+
+- Herda de Pagamento
+
+#### PagamentoComCartaoDeDebito
+- Herda de Pagamento
+
+#### PagamentoComCartaoDeCredito
+
+- Herda de Pagamento
+- Atributo Adicional: Parcelas
+- Métodos: exibir (exibe em tela os dados do pagamento, incluindo o número de parcelas)
+
+### Locacao
+
+- Atributos: Locador, Veiculo, Data de Retirada, Data de Devolução, Valor da Locação, Tipo de Pagamento
+- Métodos: calcular_valor_total (calcula o valor total da locação com base no tipo de pagamento), exibir_detalhes (exibe em tela os detalhes da locação)
+
+## Técnicas Utilizadas
+
+- Programação Orientada a Objetos (POO)
+- Herança
+- Encapsulamento
+- Polimorfismo
+- Leitura de Dados do Usuário
+- Tratamento de Exceções
+- Modularização
+- Boas Práticas de Nomenclatura
+- Comentários
+- Lógica de Negócios
+- Modificação de Atributos
+- Organização de Arquivos
+- validação de Entrada do Usuário
+- Flexibilidade de Extensão
+- Utilização de Métodos Construtores
+- Agregaçao de Objetos
+
+Além das linhas de códigos, o projeto contém:
+
+- Técnicas de UML (Caso de Uso e Diagrama de Classes)
+
+Esse foi o resumo do projeto Locadora de Veículos.

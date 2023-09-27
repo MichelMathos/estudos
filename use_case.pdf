@@ -1,0 +1,49 @@
+Título: Caso de Uso - Locação de Veículos
+
+Ator Principal: Atendente
+
+Ator Secundário: Cliente
+
+Pré-condições: O sistema da locadora de veículos está funcionando e os veículos e locadores estão cadastrados no sistema.
+
+Fluxo Principal:
+
+O atendente inicia o processo de locação.
+
+O atendente coleta informações do cliente:
+
+Nome
+Endereço
+Telefone
+E-mail
+O atendente seleciona o tipo de veículo desejado:
+
+Carro
+Moto
+O atendente coleta informações sobre o veículo selecionado:
+
+Categoria
+Marca
+Cor
+Ano (opcional para motos)
+Quantidade de Portas (apenas para carros)
+O atendente coleta informações sobre as datas de retirada e devolução do veículo.
+
+O atendente seleciona o tipo de pagamento:
+
+Débito
+Crédito (com escolha do número de parcelas)
+Dinheiro
+O sistema calcula o valor total da locação com base nas informações fornecidas, levando em consideração o tipo de veículo e o tipo de pagamento.
+
+O sistema exibe um resumo da locação, incluindo:
+
+Dados do locador (cliente)
+Dados do veículo locado
+Data de retirada e devolução
+Valor total da locação
+O atendente confirma a locação e insere os dados no sistema.
+
+Pós-condições: O sistema registra a locação e atualiza a disponibilidade do veículo. O cliente recebe informações sobre a locação, incluindo o valor a ser pago.
+
+Fluxo Alternativo: Em caso de informações incorretas ou seleções inválidas, o sistema apresenta mensagens de erro e permite ao atendente corrigir os dados.
