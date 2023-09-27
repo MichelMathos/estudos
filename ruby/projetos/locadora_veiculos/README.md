@@ -8,6 +8,25 @@ O sistema calcula o valor total da locação com base em critérios como o tipo 
 
 ## Classes
 
+### Classe Principal (main.rb)
+
+#### Descrição
+
+A classe main.rb é o ponto de entrada do sistema da locadora de veículos.
+
+#### Funcionalidades Principais
+
+- Coleta de informações do cliente pelo atendente.
+- Seleção do tipo de veículo (carro ou moto) e fornecimento de detalhes do veículo a ser locado.
+- Definição das datas de retirada e devolução do veículo.
+- Escolha do tipo de pagamento (débito, crédito ou dinheiro).
+- Cálculo do valor total da locação com base nas informações fornecidas.
+- Exibição dos detalhes da locação, incluindo dados do cliente, do veículo e pagamento.
+
+#### Uso da Classe
+
+A classe `main.rb` é responsável por interagir com os atendentes e clientes, coletar informações e coordenar as operações de locação de veículos. Ela faz uso das classes `Locador`, `PessoaFisica`, `PessoaJuridica`, `Veiculo`, `Carro`, `Moto`, `Pagamento`, `PagamentoEmDinheiro`, `PagamentoComCartaoDeDebito`, `PagamentoComCartaoDeCredito` e `Locacao` para executar suas funcionalidades.
+
 ### Locador
 
 - Atributos: Nome, Endereço, Telefone, Email
@@ -51,6 +70,7 @@ O sistema calcula o valor total da locação com base em critérios como o tipo 
 - Herda de Pagamento
 
 #### PagamentoComCartaoDeDebito
+
 - Herda de Pagamento
 
 #### PagamentoComCartaoDeCredito
@@ -87,4 +107,4 @@ Além das linhas de códigos, o projeto contém:
 
 - Técnicas de UML (Caso de Uso e Diagrama de Classes)
 
-Esse foi o resumo do projeto Locadora de Veículos.
+Esse foi o resumo do projeto Locadora de Veículos..
