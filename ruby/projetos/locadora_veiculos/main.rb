@@ -136,6 +136,8 @@ if forma_pagamento == 2
 end
 
 # Relatório da locação
+system("clear") || system("cls")
+puts ""
 puts "\n====================| Resumo da Locação |===================="
 puts "Locador:"
 locador.exibir
