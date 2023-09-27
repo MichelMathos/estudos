@@ -8,16 +8,15 @@ end
 
 class PagamentoEmDinheiro < Pagamento
   def exibir
-    puts "Pagamento em dinheiro - valor da diária R$#{ @valor }"
+    puts "Pagamento em dinheiro - valor da diária: R$#{@valor}"
   end
 end
 
 class PagamentoComCartaoDeDebito < Pagamento
   def exibir
-    puts "Pagamento com cartão de débito - valor da diária: R$#{ @valor }"
+    puts "Pagamento com cartão de débito - Valor da diária: R$#{@valor}"
   end
 end
-
 class PagamentoComCartaoDeCredito < Pagamento
   attr_reader :parcelas
 
@@ -25,17 +24,16 @@ class PagamentoComCartaoDeCredito < Pagamento
     super(valor)
     @parcelas = parcelas
   end
-#end
 
-def calcula_juros(dias_de_locacao)
-  if parcelas > 1
-    juros = valor * 0.2 * dias_de_locacao # Definida taxa de juros mensal de 2%
-    return juros * parcelas
-  end
-  0
-end
+  def calcula_juros(dias_de_locacao)
+    if parcelas > 1
+      juros = valor * 0.02 * dias_de_locacao # Taxa de juros mensal de 2%
+      return juros * parcelas
+    end
+    0
+  end 
 
-  def exibir 
-    puts "Pagamento com cartão de crédito - Valor diária: R$#{ @valor } (#{@parcelas}X)"
+  def exibir
+    puts "Pagamento com cartão de crédito - Valor da diária: R$#{@valor} (#{@parcelas}x)"
   end
 end
