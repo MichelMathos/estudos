@@ -16,4 +16,6 @@ def get_all_task(conn)
     conn.exec('SELECT * FROM tasks;')
 end
 
+
+
 # Conecte-se ao banco de dados
