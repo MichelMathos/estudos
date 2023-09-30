@@ -21,15 +21,31 @@ conn = PG.connect(dbname: 'create_task_table', user: 'postgres', password: 'Trai
 # Crie a tabela de tarefas se não existir
 create_tasks_table(conn)
 
-# Adicione algumas tarefas
-add_task(conn, 'Fazer compras')
-add_task(conn, 'Estudar Ruby')
-add_task(conn, 'Praticar PostgreSQL')
+# Solicite ao usuário inserir tarefas
+
+loop do
+    puts 'Digite uma tarefa (ou digite "exit" para sair): '
+    description = gets.chomp
+
+    break if description.downcase == 'exit'
+
+    # Adicione a tarefa ao banco de dados
+    begin
+        add_task(conn, description)
+    rescue PG::Error => e
+        puts "Erro ao adiconar tarefa: #{e.message}"
+    end
+end
+
 
 # Obtenha e imprima todas as tarefas
-results = get_all_tasks(conn)
-results.each do |row|
-    puts "ID: #{row['id']} Descrição: #{row['description']}"
+begin
+    results = get_all_tasks(conn)
+    results.each do |row|
+        puts "ID: #{row['id']} Descrição: #{row['description']}"
+    end
+rescue PG::Error => e
+    puts "Erro ao obter tarefas: #{e.message}"
 end
 
 # Feche a conexão
