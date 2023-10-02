@@ -1,7 +1,12 @@
+# 'require' importa a biblioteca de uma biblioteca
+# 'pg' é uma biblioteca para trabalhar com PostgreSQL no Ruby
+# 'date' é uma biblioteca para manipular objetos com datas
+
 require 'pg'
 require 'date'
 
 # Método para criar ou modificar a tabela de tarefas
+
 def create_or_update_tasks_table(conn)
     conn.exec('
       CREATE TABLE IF NOT EXISTS tasks (
@@ -22,11 +27,13 @@ def get_all_tasks(conn)
     conn.exec('SELECT * FROM tasks;')
 end
 
-# Conecte-se ao banco de dados
+# Estabelece uma conexão com o banco de dados PostgreSQL
+
 conn = PG.connect(dbname: 'create_task_table', user: 'postgres', password: 'Trainee1@', host: 'localhost')
 
-# Crie ou atualize a tabela de tarefas
+# Criação ou atualização da tabela de tarefas no PostgreSQL
 create_or_update_tasks_table(conn)
+puts "'Tabela de tarefas criada ou atualizada com sucesso."
 
 # Solicite ao usuário inserir tarefas
 
@@ -47,23 +54,26 @@ loop do
     # Adicione a tarefa ao banco de dados
         add_task(conn, description, date)
         puts "===== Adicionada nova tarefa!"
+    # Trata erros na conversão de data
     rescue ArgumentError => e
         puts "Erro ao adiconar tarefa: #{e.message}"
         puts "Certifique-se de digitar a data no formato correto (DD-MM-YYYY)."
+    # Trata erros relacionados ao PostgreSQl
     rescue PG::Error => e
         puts "Erro ao adicionar tarefa no lista de tarefas: #{e.message}"
     end
 end
 
-# Obtenha e imprima todas as tarefas
+# Obtenha todas as tarefas do banco de dados e imprime na tela
 begin
     results = get_all_tasks(conn)
     results.each do |row|
         puts "ID: #{row['id']} Descrição: #{row['description']} Data: #{row['date']}"
     end
+#Trata erros ao obter tarefas do banco de dados
 rescue PG::Error => e
     puts "Erro ao obter tarefas: #{e.message}"
 end
 
-# Feche a conexão
+# Fechando a conexão
 conn.close
