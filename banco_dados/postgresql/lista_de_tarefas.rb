@@ -6,7 +6,7 @@ require 'pg'
 require 'date'
 
 # Método para criar ou modificar a tabela de tarefas
-
+# 'conn' é a variável responsável por carregar a tabela de lista de tarefas
 def create_or_update_tasks_table(conn)
     conn.exec('
       CREATE TABLE IF NOT EXISTS tasks (
@@ -15,7 +15,23 @@ def create_or_update_tasks_table(conn)
         date DATE
       );
     ')
-  end
+
+    table_exists = result[0]['exists'] = 't'
+
+    unless table_exists
+        conn.exec( '
+            CREATE TABLE tasks (
+                id SERIAL PRIMARY KEY,
+                description TEXT,
+                date DATE
+            );
+        ')
+        puts " Tabela de tarefas criada com sucesso."              
+    else
+        puts "A Tabela de tarefas já existe. Nenhum procedimento foi adotado."
+                
+    end
+end
 
 # Método para adicionar uma tarefa
 def add_task(conn, description, date)
@@ -44,6 +60,8 @@ loop do
     break if description.downcase == 'exit'
 
     # solicite ao usuário inserir a data da tarefa (com tratamento de erros)
+    # 'begin' Este comando faz parte de um bloco de exceções. Se houver alguma
+    # exceção, 'rescue' fará o trabalho de comunicar o possível erro
     begin
         puts 'Digite a data da tarefa (no formato DD-MM-YYYY): '
         date_input = gets.chomp
