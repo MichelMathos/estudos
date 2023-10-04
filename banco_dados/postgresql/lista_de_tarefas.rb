@@ -14,6 +14,7 @@ def create_or_update_tasks_table(conn)
       description TEXT,
       date DATE
     );
+    ALTER TABLE tasks ADD COLUMN IF NOT EXISTS date DATE;
   ')
 
   puts 'Tabela de tarefas criada ou atualizada com sucesso.'
