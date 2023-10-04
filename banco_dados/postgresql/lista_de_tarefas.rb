@@ -1,9 +1,10 @@
 # 'require' importa a biblioteca de uma biblioteca
 # 'pg' é uma biblioteca para trabalhar com PostgreSQL no Ruby
 # 'date' é uma biblioteca para manipular objetos com datas
-
+#  'io/console' é uma biblioteca de sistema que interage com o console
 require 'pg'
 require 'date'
+require 'io/console'
 
 # Método para criar ou modificar a tabela de tarefas
 # 'conn' é a variável responsável por carregar a tabela de lista de tarefas
@@ -25,8 +26,19 @@ def add_task(conn, description, date)
   conn.exec_params('INSERT INTO tasks (description, date) VALUES ($1, $2);', [description, date])
 end
 
-# Método para obter todas as tarefas
+# Método para limpar o console de forma multiplataforma - 'io/console
+def clear_terminal
+  if Gem.win_platform?
+    system 'cls' # para Windows
+  else
+    print "\e[2J\e[f" # Código de escape ANSI para limpar terminal Linux/Mac
+  end
+end
+
+    # Método para obter todas as tarefas
 def get_all_tasks(conn)
+  clear_terminal
+  puts "===== Tarefas Agendadas"
   conn.exec('SELECT * FROM tasks;')
 end
 
