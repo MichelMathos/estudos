@@ -13,9 +13,10 @@ def create_or_update_tasks_table(conn)
     CREATE TABLE IF NOT EXISTS tasks (
       id SERIAL PRIMARY KEY,
       description TEXT,
-      date DATE
+      date DATE,
+      time TIME
     );
-    ALTER TABLE tasks ADD COLUMN IF NOT EXISTS date DATE;
+    ALTER TABLE tasks ADD COLUMN IF NOT EXISTS time TIME;
   ')
 
   puts 'Tabela de tarefas criada ou atualizada com sucesso.'
@@ -23,7 +24,7 @@ end
 
 # Método para adicionar uma tarefa
 def add_task(conn, description, date)
-  conn.exec_params('INSERT INTO tasks (description, date) VALUES ($1, $2);', [description, date])
+  conn.exec_params('INSERT INTO tasks (description, date, time) VALUES ($1, $2, $3);', [description, date, time])
 end
 
 # Método para limpar o console de forma multiplataforma - 'io/console
@@ -49,14 +50,14 @@ conn = PG.connect(dbname: 'create_task_table', user: 'postgres', password: 'Trai
 create_or_update_tasks_table(conn)
 puts "'Tabela de tarefas criada ou atualizada com sucesso."
 
-# Solicite ao usuário inserir tarefas
+# Solicita ao usuário inserir tarefas
 loop do
   puts 'Digite uma tarefa (ou digite "exit" para sair): '
   description = gets.chomp
 
   break if description.downcase == 'exit'
 
-  # solicite ao usuário inserir a data da tarefa (com tratamento de erros)
+  # Solicita ao usuário inserir a data da tarefa (com tratamento de erros)
   begin
     puts 'Digite a data da tarefa (no formato DD-MM-YYYY): '
     date_input = gets.chomp
@@ -64,8 +65,11 @@ loop do
     # Converta a data para o formato YYY-MM-DD (formato do PostgreSQL)
     date = Date.strptime(date_input, '%d-%m-%Y').strftime('%Y-%m-%d')
 
+    # Solicita ao usuário informar o horário da tarefa
+    puts "Digite o horárop da tarefa (no formato HH:MM): "
+    time = gets.chomp
     # Adicione a tarefa ao banco de dados
-    add_task(conn, description, date)
+    add_task(conn, description, date, time)
     puts "===== Adicionada nova tarefa!"
   rescue ArgumentError => e
     puts "Erro ao adicionar tarefa: #{e.message}"
@@ -79,7 +83,7 @@ end
 begin
   results = get_all_tasks(conn)
   results.each do |row|
-    puts "ID: #{row['id']} Descrição: #{row['description']} Data: #{row['date']}"
+    puts "ID: #{row['id']} Descrição: #{row['description']} Data: #{row['date']} Horário: #{row['time']}"
   end
 rescue PG::Error => e
   puts "Erro ao obter tarefas: #{e.message}"
