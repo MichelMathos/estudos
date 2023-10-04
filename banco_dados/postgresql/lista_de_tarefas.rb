@@ -23,7 +23,7 @@ def create_or_update_tasks_table(conn)
 end
 
 # Método para adicionar uma tarefa
-def add_task(conn, description, date)
+def add_task(conn, description, date, time)
   conn.exec_params('INSERT INTO tasks (description, date, time) VALUES ($1, $2, $3);', [description, date, time])
 end
 
