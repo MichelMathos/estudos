@@ -27,6 +27,29 @@ def add_task(conn, description, date, time)
   conn.exec_params('INSERT INTO tasks (description, date, time) VALUES ($1, $2, $3);', [description, date, time])
 end
 
+# Método para alterar/atualizar uma tarefa pela ID
+def update_task(conn, id)
+  puts "Digite a nova descrição da trefa: "
+  new_description = gets.chomp
+
+  begin
+    puts "Digite a nova data da tarefa (no formato DD-MM-YYYY): "
+    new_date_input = gets.chomp
+    new_date = Date.strptime(new_date_input, '%d-%m-%Y').strtime('%y-%m-%d')
+    
+    puts "Digite o novo horário da tarefa (no formato HH:MM): "
+    new_time = gets.chomp
+    
+    conn.exec_params('UPDATE tasks SET description = $1, date = $2, time = $3 WHERE id = $4;', [new_description, new_date, new_time, id])
+    puts "Tarefa atualizada com sucesso!"
+  rescue ArgumentError => e
+    puts "Erro ao atualizar tarefa: #{e.message}"
+    puts "Certifique-se de digitar a data no formato correto (DD-MM-YYYY) e o horário no formato correto (HH:MM)."
+  rescue PG::Error => e
+    puts "Erro ao atualizar tarefa: #{e.message}"
+  end
+end
+
 # Método para limpar o console de forma multiplataforma - 'io/console
 def clear_terminal
   if Gem.win_platform?
