@@ -35,7 +35,7 @@ def update_task(conn, id)
   begin
     puts "Digite a nova data da tarefa (no formato DD-MM-YYYY): "
     new_date_input = gets.chomp
-    new_date = Date.strptime(new_date_input, '%d-%m-%Y').strtime('%y-%m-%d')
+    new_date = Date.strptime(new_date_input, '%d-%m-%Y').strftime('%y-%m-%d')
     
     puts "Digite o novo horário da tarefa (no formato HH:MM): "
     new_time = gets.chomp
@@ -55,7 +55,7 @@ def clear_terminal
   if Gem.win_platform?
     system 'cls' # para Windows
   else
-    print "\e[2J\e[f" # Código de escape ANSI para limpar terminal Linux/Mac
+    system 'clear' # Código de escape ANSI para limpar terminal Linux/Mac
   end
 end
 
@@ -73,12 +73,21 @@ conn = PG.connect(dbname: 'create_task_table', user: 'postgres', password: 'Trai
 create_or_update_tasks_table(conn)
 puts "'Tabela de tarefas criada ou atualizada com sucesso."
 
-# Solicita ao usuário inserir tarefas
-loop do
+# Solicita ao usuário escolher opções
+puts 'Escolha uma opção: '
+puts '1. Adicionar nova tarefa'
+puts '2. Alterar tarefa existente'
+choice = gets.chomp.to_i
+
+case choice
+when 1
+  # Solicita ao usuário inserir a descrição da tarefa
   puts 'Digite uma tarefa (ou digite "exit" para sair): '
   description = gets.chomp
 
-  break if description.downcase == 'exit'
+  if description.downcase =='exit'
+    exit
+  end
 
   # Solicita ao usuário inserir a data da tarefa (com tratamento de erros)
   begin
@@ -100,6 +109,14 @@ loop do
   rescue PG::Error => e
     puts "Erro ao adicionar tarefa à lista de tarefas: #{e.message}"
   end
+
+when 2
+  puts 'Digite o ID da tarefa que deseja alterar: '
+  task_id_to_update = gets.chomp.to_i
+  update_task(conn, task_id_to_update)
+
+else
+  puts 'Opção inválida.'
 end
 
 # Obtenha todas as tarefas do banco de dados e imprima na tela
