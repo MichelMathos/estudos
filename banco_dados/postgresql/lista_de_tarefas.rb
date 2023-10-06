@@ -50,6 +50,14 @@ def update_task(conn, id)
   end
 end
 
+# Método para excluir um registro informando o ID
+def delete_task(conn, id)
+  conn.exec_params('DELETE FROM tasks WHERE id = $1;'[id])
+  puts "Tarefa removida com sucesso!"
+rescue PG::Error => e
+  puts "Erro ao remover tarefa: #{e.message}"
+end
+
 # Método para limpar o console de forma multiplataforma - 'io/console
 def clear_terminal
   if Gem.win_platform?
