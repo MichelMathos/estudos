@@ -52,7 +52,7 @@ end
 
 # Método para excluir um registro informando o ID
 def delete_task(conn, id)
-  conn.exec_params('DELETE FROM tasks WHERE id = $1;'[id])
+  conn.exec_params('DELETE FROM tasks WHERE id = $1;',[id])
   puts "Tarefa removida com sucesso!"
 rescue PG::Error => e
   puts "Erro ao remover tarefa: #{e.message}"
@@ -74,6 +74,9 @@ def get_all_tasks(conn)
   conn.exec('SELECT * FROM tasks;')
 end
 
+# Estabelece uma conexão com o banco de dados PostgreSQL
+conn = PG.connect(dbname: 'create_task_table', user: 'postgres', password: 'Trainee1@', host: 'localhost')
+
 # Criação ou atualização da tabela de tarefas no PostgreSQL
 create_or_update_tasks_table(conn)
 puts "'Tabela de tarefas criada ou atualizada com sucesso."
@@ -81,7 +84,8 @@ puts "'Tabela de tarefas criada ou atualizada com sucesso."
 # Método do menu
 def show_menu
   # Solicita ao usuário escolher opções
-  puts 'Escolha uma opção: '
+  puts""
+  puts 'Escolha uma opção:'
   puts '1. Adicionar nova tarefa'
   puts '2. Alterar tarefa existente'
   puts '3. Deletar tarefa'
