@@ -3,8 +3,10 @@
 # 'date' é uma biblioteca para manipular objetos com datas
 #  'io/console' é uma biblioteca de sistema que interage com o console
 require 'pg'
+require 'yaml'
 require 'date'
 require 'io/console'
+require 'dotenv/load'
 
 # Método para criar ou modificar a tabela de tarefas
 # 'conn' é a variável responsável por carregar a tabela de lista de tarefas
@@ -54,6 +56,7 @@ end
 def delete_task(conn, id)
   conn.exec_params('DELETE FROM tasks WHERE id = $1;',[id])
   puts "Tarefa removida com sucesso!"
+  conn.exec("COMMIT;") # Certifica que todas as alterações sejam confirmadas
 rescue PG::Error => e
   puts "Erro ao remover tarefa: #{e.message}"
 end
@@ -75,7 +78,12 @@ def get_all_tasks(conn)
 end
 
 # Estabelece uma conexão com o banco de dados PostgreSQL
-conn = PG.connect(dbname: 'create_task_table', user: 'postgres', password: 'Trainee1@', host: 'localhost')
+conn = PG.conect(
+  dbname: ENV['DB_NAME'],
+  user: ENV['DB_USER'],
+  password: ENV['DB_PASSWORD'],
+  host: ENV['DB_HOST']
+)
 
 # Criação ou atualização da tabela de tarefas no PostgreSQL
 create_or_update_tasks_table(conn)
@@ -168,10 +176,6 @@ begin
 rescue PG::Error => e
   puts "Erro ao obter tarefas: #{e.message}"
 end
-
-# Estabele uma conexão com o banco de dados Posgresql
-conn = PG.connect(dbname: 'create_task_table', user: 'postgres', password: 'Trainee1@', host: 'localhost')
-puts 'Tabela de tarefas criada ou atualizada com sucesso.'
 
 main_menu(conn)
 
