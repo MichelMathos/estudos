@@ -67,64 +67,92 @@ def clear_terminal
   end
 end
 
-    # Método para obter todas as tarefas
+# Método para obter todas as tarefas
 def get_all_tasks(conn)
   clear_terminal
   puts "===== Tarefas Agendadas"
   conn.exec('SELECT * FROM tasks;')
 end
 
-# Estabelece uma conexão com o banco de dados PostgreSQL
-conn = PG.connect(dbname: 'create_task_table', user: 'postgres', password: 'Trainee1@', host: 'localhost')
-
 # Criação ou atualização da tabela de tarefas no PostgreSQL
 create_or_update_tasks_table(conn)
 puts "'Tabela de tarefas criada ou atualizada com sucesso."
 
-# Solicita ao usuário escolher opções
-puts 'Escolha uma opção: '
-puts '1. Adicionar nova tarefa'
-puts '2. Alterar tarefa existente'
-choice = gets.chomp.to_i
+# Método do menu
+def show_menu
+  # Solicita ao usuário escolher opções
+  puts 'Escolha uma opção: '
+  puts '1. Adicionar nova tarefa'
+  puts '2. Alterar tarefa existente'
+  puts '3. Deletar tarefa'
+  puts '4. Sair'
+end
 
-case choice
-when 1
-  # Solicita ao usuário inserir a descrição da tarefa
-  puts 'Digite uma tarefa (ou digite "exit" para sair): '
-  description = gets.chomp
+def main_menu(conn)
+  loop do
+    clear_terminal
 
-  if description.downcase =='exit'
-    exit
+    begin
+      results = get_all_tasks(conn)
+      results.each do |row|
+        puts "Id: #{row['id']} Descrição: #{row['description']} Data: #{row['date']} Horário: #{row['time']}"
+      end
+    rescue PG::Error => e
+        puts "Erro ao obter tarefas: #{e.message}"
+    end
+
+    show_menu
+      
+    choice = gets.chomp.to_i
+    case choice
+    when 1
+      # Solicita ao usuário inserir a descrição da tarefa
+      puts 'Digite uma tarefa (ou digite "exit" para sair): '
+      description = gets.chomp
+
+      if description.downcase =='exit'
+        exit
+      end
+
+      # Solicita ao usuário inserir a data da tarefa (com tratamento de erros)
+      begin
+        puts 'Digite a data da tarefa (no formato DD-MM-YYYY): '
+        date_input = gets.chomp
+
+        # Converta a data para o formato YYY-MM-DD (formato do PostgreSQL)
+        date = Date.strptime(date_input, '%d-%m-%Y').strftime('%Y-%m-%d')
+
+        # Solicita ao usuário informar o horário da tarefa
+        puts "Digite o horárop da tarefa (no formato HH:MM): "
+        time = gets.chomp
+        # Adicione a tarefa ao banco de dados
+        add_task(conn, description, date, time)
+        puts "===== Adicionada nova tarefa!"
+      rescue ArgumentError => e
+        puts "Erro ao adicionar tarefa: #{e.message}"
+        puts "Certifique-se de digitar a data no formato correto (DD-MM-YYYY)."
+      rescue PG::Error => e
+        puts "Erro ao adicionar tarefa à lista de tarefas: #{e.message}"
+      end
+
+    when 2
+      puts 'Digite o ID da tarefa que deseja alterar: '
+      task_id_to_update = gets.chomp.to_i
+      update_task(conn, task_id_to_update)
+
+    when 3
+      puts 'Digite o ID da tarefa que deseja remover: '
+      task_id_to_delete = gets.chomp.to_i
+      delete_task(conn, task_id_to_delete)
+
+    when 4
+      puts 'Saindo do programa.'
+      exit
+
+    else
+      puts 'Opção inválida.'
+    end
   end
-
-  # Solicita ao usuário inserir a data da tarefa (com tratamento de erros)
-  begin
-    puts 'Digite a data da tarefa (no formato DD-MM-YYYY): '
-    date_input = gets.chomp
-
-    # Converta a data para o formato YYY-MM-DD (formato do PostgreSQL)
-    date = Date.strptime(date_input, '%d-%m-%Y').strftime('%Y-%m-%d')
-
-    # Solicita ao usuário informar o horário da tarefa
-    puts "Digite o horárop da tarefa (no formato HH:MM): "
-    time = gets.chomp
-    # Adicione a tarefa ao banco de dados
-    add_task(conn, description, date, time)
-    puts "===== Adicionada nova tarefa!"
-  rescue ArgumentError => e
-    puts "Erro ao adicionar tarefa: #{e.message}"
-    puts "Certifique-se de digitar a data no formato correto (DD-MM-YYYY)."
-  rescue PG::Error => e
-    puts "Erro ao adicionar tarefa à lista de tarefas: #{e.message}"
-  end
-
-when 2
-  puts 'Digite o ID da tarefa que deseja alterar: '
-  task_id_to_update = gets.chomp.to_i
-  update_task(conn, task_id_to_update)
-
-else
-  puts 'Opção inválida.'
 end
 
 # Obtenha todas as tarefas do banco de dados e imprima na tela
@@ -136,6 +164,12 @@ begin
 rescue PG::Error => e
   puts "Erro ao obter tarefas: #{e.message}"
 end
+
+# Estabele uma conexão com o banco de dados Posgresql
+conn = PG.connect(dbname: 'create_task_table', user: 'postgres', password: 'Trainee1@', host: 'localhost')
+puts 'Tabela de tarefas criada ou atualizada com sucesso.'
+
+main_menu(conn)
 
 # Fechando a conexão
 conn.close
