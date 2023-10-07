@@ -77,8 +77,11 @@ def get_all_tasks(conn)
   conn.exec('SELECT * FROM tasks;')
 end
 
+# Carrega as configurações do arquivo externo
+config = YAML.load_file('config.yml')
+
 # Estabelece uma conexão com o banco de dados PostgreSQL
-conn = PG.conect(
+conn = PG.connect(
   dbname: ENV['DB_NAME'],
   user: ENV['DB_USER'],
   password: ENV['DB_PASSWORD'],
@@ -87,7 +90,7 @@ conn = PG.conect(
 
 # Criação ou atualização da tabela de tarefas no PostgreSQL
 create_or_update_tasks_table(conn)
-puts "'Tabela de tarefas criada ou atualizada com sucesso."
+puts "Tabela de tarefas criada ou atualizada com sucesso."
 
 # Método do menu
 def show_menu
