@@ -19,3 +19,6 @@ O sistemaestá bastante funcionl, atingindo a proposta que lhe cabe.
 Possui tratamento de erros, o que deixa o sistema com uma melhor experiência do usuário já que esse é informado quando houver alguma incositência na hora de registrar as tarefas
 .
 O sistema é passível de melhorias, sendo que aqui o que está se desenvolvendo é um conjunto de aprendizados sobre Ruby e PostgreSQL, culminando num projeto a fim testar e mostrar as habilidades aprendidas até então.
+
+### **Autor:**
+Michel Matos
