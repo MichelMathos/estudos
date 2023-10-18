@@ -25,6 +25,12 @@ class Administrador < Usuario
     end
 
     # Método específico para administrador: Listar todos os produtos
+    def listar_produtos
+        produtos = SistemaControleEstoque.instance.produtosprodutos.each do |produto|
+            puts "#{produto.id_usuario} - #{produto.nome} (#{produto.descricao})"
+        end
+    end
+
     
 
 end
