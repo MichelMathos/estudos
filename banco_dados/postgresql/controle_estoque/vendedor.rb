@@ -25,8 +25,18 @@ class Vendedor < Usuario
             puts "Quantidade em estoque insuficiente."
         end
     end
-    
 
-
+    # Método específico para vendedor: Listar suas vendas
+    def listar_vendas
+        if @vendas.empty?
+            puts "Você ainda não realizou nenhuma venda."
+        else
+            puts "Suas vendas:"
+            @vendas.each_with_index do |venda, index|
+                puts "#{index + 1}. #{vendas[:produto].nome} - #{venda[:quantidade]} unidades - #{venda[:data]}"
+            end
+        end
+    end
 end
+
 
