@@ -17,8 +17,17 @@ class Estoquista < Usuario
         end
     end
     
+    # Método específico para estoquista: Listar todos os produtos do estoque
+    def listar_produtos_em_estoque
+        produtos = SistemaControleEstoque.instance.listar_produtos_em_estoque
 
-
-
-
+        if produtos.empty?
+            puts "Não há produtos em estoque."
+        else
+            puts "Produtos em estoque:"
+            produtos.each do |produto|
+                puts "#{produto.id_produto} - #{produto.nome} (#{produto.quantidade_em_estoque} unidades)"
+            end
+        end
+    end
 end
