@@ -53,3 +53,20 @@ class ControleEstoque
             puts "Credenciais inválidas."
         end
     end
+
+    def vendedor_login
+        # Lógica de login para o vendedor
+        puts "Digite seu código de vendedor: "
+        codigo = gets.chomp
+        puts "Digite sua senha de vendedor: "
+        senha = gets.chomp
+
+        # Verifica as credenciais (simplificado)
+        if verificar_credenciais_vendedor(codigo, senha)
+            vendedor = CVendedor.new("vendedor_id", codifo, senha, "Vendedor", "987654321", "Endereco", "987-654-3210", "vendedor@vendedor.com")
+            vendedor.exibir_dashboard
+        else
+            puts "Credenciais de vendedor inválidas."
+        end
+    end
+    
