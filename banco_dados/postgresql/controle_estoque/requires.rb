@@ -1,0 +1,8 @@
+require_relative 'usuario'
+require_relative 'administrador'
+require_relative 'vendedor'
+require_relative 'estoquista'
+require_relative 'estoquista'
+require_relative 'produto'
+require_relative 'sistema_controle_estoque'
+require_relative 'controle_estoque'
