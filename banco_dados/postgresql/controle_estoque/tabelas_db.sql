@@ -11,3 +11,11 @@ CREATE TABLE usuarios (
     papel VARCHAR(20) NOT NULL -- admin, vendedor, estoquista...
 );
 
+-- Tabela de Produtos
+CREATE TABLE produtos (
+    id SERIAL PRIMARY KEY.
+    nome VARCHAR(100) NOT NULL,
+    marca VARCHAR(50),
+    preco DECIMAL(10,2) NOT NULL,
+    quantidade INTEGER NOT NULL
+);
