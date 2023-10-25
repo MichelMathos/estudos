@@ -1,18 +1,10 @@
 require 'pg'
-require 'date'
-require 'dotenv'
-require 'yaml'
-require 'io/console'
-
 require_relative 'sistema_controle_estoque'
-require_relative 'usuario'
-require_relative 'administrador'
-require_relative 'vendedor'
-require_relative 'estoquista'
 
 class ControleEstoque
     def initialize
-        @sistema = SistemaControleEstoque.instance
+        @sistema = SistemaControleEstoque.new
+        @conn = PG.connect(dbname: 'nome_do_banco', user: 'usuario', password: 'password')
     end
 
     def iniciar
@@ -42,12 +34,13 @@ class ControleEstoque
     def admin_login
         # Lógica de login paar o administrador (verifica código e senha)
         puts "Digite o código de administrador: "
-        codigo = gets.chompputs "Digite a senha do administrador: "
+        codigo = gets.chomp
+        puts "Digite a senha do administrador: "
         senha = gets.chomp
 
-        # Verifica as credenciais (simplificado)
-        if codigo == 'admin' && senha == 'admin'
-            administrador = Administrador.new("admin_id", "admin", "admin", "Administrador", "123456789", "Endereço", "123-456-7890", "admin@admin.com")
+        # Verifica as credenciai
+        if cverificar_credenciais_admin(codigo, senha)
+            administrador = Administrador.new("admin_id", codigo, senha, "Administrador", "123456789", "Endereço", "123-456-7890", "admin@admin.com")
             administrador.exibir_dashboard
         else
             puts "Credenciais inválidas."
@@ -63,7 +56,7 @@ class ControleEstoque
 
         # Verifica as credenciais (simplificado)
         if verificar_credenciais_vendedor(codigo, senha)
-            vendedor = CVendedor.new("vendedor_id", codifo, senha, "Vendedor", "987654321", "Endereco", "987-654-3210", "vendedor@vendedor.com")
+            vendedor = Vendedor.new("vendedor_id", codifo, senha, "Vendedor", "987654321", "Endereco", "987-654-3210", "vendedor@vendedor.com")
             vendedor.exibir_dashboard
         else
             puts "Credenciais de vendedor inválidas."
