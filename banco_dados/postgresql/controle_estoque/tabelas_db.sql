@@ -19,3 +19,11 @@ CREATE TABLE produtos (
     preco DECIMAL(10,2) NOT NULL,
     quantidade INTEGER NOT NULL
 );
+
+-- Tabela de Vendas
+CREATE TABLE vendas (
+    id SERIAL PRIMARY KEY,
+    data_venda TIMESTAMP NOT NULL,
+    id_vendedor INTEGER REFERENCES usuarios(id),
+    valor_total DECIMAL(10,2) NOT NULL
+);

@@ -1,1 +1,1 @@
-CREATE DATABASE controle_estoque_db;
+createb controle_estoque
