@@ -27,3 +27,13 @@ CREATE TABLE vendas (
     id_vendedor INTEGER REFERENCES usuarios(id),
     valor_total DECIMAL(10,2) NOT NULL
 );
+
+-- Tabela de Itens à Venda
+CREATE TABLE itens_venda (
+    id SERIA PRIMARY KEY,
+    id_venda INTEGER REFERENCES vendas(id)
+    id_produto INTEGER NOT NULL,
+    quantidade INTEGER NOT NULL,
+    preco_unitario DECIMAL(10,2) NOT NULL,
+    valor_total DECIMAL(10,2) NOT NULL
+);
