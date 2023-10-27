@@ -75,4 +75,8 @@ class ControleEstoque
     end
 end
 
+# Inicializar o controle de estoque
+controle_estoque= ControleEstoque.new
+controle_estoque.iniciar
+
     
