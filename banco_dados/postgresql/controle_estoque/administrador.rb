@@ -5,8 +5,12 @@ class Administrador < Usuario
 
     # Método específico para administrador: Adicionar um novo usuário
     def adicionar_usuario(codigo, senha, nome, cpf, endereco, telefone, email)
-        novo_usuario = Usuario.new(codigo, senha, nome, cpf, endereco, telefone, email)
-        SistemaControleEstoque.instance.adicinar_usuario(novo_usuario)
+        conn = PG.connect(dbname: 'nome_do_banco', user: 'usuario', password: 'senha')
+        conn.exec_params(
+            "INSERT INTO usuarios (codigo, senha, nome, cpf, endereco, telefone, email, papel) VALUES (#$1, $2, $3, $4, $5, $6, $7, $8)",
+            [codigo, senha, nome, cpf, endereco, telefone, email, 'admin']
+        )
+        conn.close 
     end
 
     # Método específico para admnistrador: Listar todos os usuários
