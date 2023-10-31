@@ -81,4 +81,5 @@ class Administrador < Usuario
                 puts "Opção inválida. Tente novamente"
             end
         end
+    end
 end
