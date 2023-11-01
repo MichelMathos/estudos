@@ -1,9 +1,12 @@
+require 'pg'
+
 class SistemaControleEstoque
     attr_reader :usuarios, :produtos
 
     def initialize
         @usuarios = []
         @produtos = []
+        @conn = PG.connect(dbname: 'controle_estoque', user: 'postgresql', password: 'Trainee1@')
     end
     
     def self.instance
