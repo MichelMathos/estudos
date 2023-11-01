@@ -59,6 +59,20 @@ class SistemaControleEstoque
     end
 
     def produtos_em_estoque 
-        @produtos.select { |produto| produto.quantidade_em_estoque > 0 }
+        result = conn.exec("SELECT * FROM produtos WHERE quantidade > 0")
+        produtos = []
+
+        result.each do |produto_data|
+            produto = Produto.new(
+                produto_data['id'].to_i,
+                produto_data['nome'],
+                produto_data['descricao'],
+                produto_data['preco'].to_f,
+                produto_data['fornecedor']
+            )
+            produtos << produto
+        end
+    
+        produtos
     end
 end
