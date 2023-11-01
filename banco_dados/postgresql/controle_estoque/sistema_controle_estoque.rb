@@ -19,7 +19,20 @@ class SistemaControleEstoque
     end
 
     def encontrar_usuario_por_id(id_usuario)
-        @usuarios.find { |usuario| usuario.id_usuario == id_usuario }
+        result = @conn.exec_params("SELECT * FROM usuarios WHERE id = $1", [id_usuarios] )
+        return nil if result.num_tuples.zero?
+
+        usuario_data = result[0]
+        Usuario.new(
+            usuario_data['id'].to_i,
+            usuario_data['codigo'],
+            usuario_data['senha'],
+            usuario_data['nome'],
+            usuario_data['cpf'],
+            usuario_data['endereco'],
+            usuario_data['telefone'],
+            usuario_data['email']
+        )
     end
 
     def remover_usuario(usuario)
