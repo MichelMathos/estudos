@@ -4,7 +4,7 @@ require_relative 'sistema_controle_estoque'
 class ControleEstoque
     def initialize
         @sistema = SistemaControleEstoque.new
-        @conn = PG.connect(dbname: 'nome_do_banco', user: 'usuario', password: 'password')
+        @conn = PG.connect(dbname: 'controle_estoque', user: 'postgresql', password: 'Trainee1@')
     end
 
     def iniciar
