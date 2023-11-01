@@ -45,7 +45,17 @@ class SistemaControleEstoque
     end
 
     def encontrar_produto_por_id(id_produto)
-        @produtos.find { |produto| produto.id_produto == id_produto }
+       result = @conn.exec_params("SELECT * FROM produtos WHERE id = $1",[id_produto])
+       return nil if result.num_tuples.zero?
+
+       produto_data = result[0]
+       Produto.new(
+        produto_data['id'].to_i,
+        produto_data['nome'],
+        produto_data['descricao'],
+        produto_data['preco'].to_f,
+        produto_data['fornecedor']
+       )
     end
 
     def produtos_em_estoque 
