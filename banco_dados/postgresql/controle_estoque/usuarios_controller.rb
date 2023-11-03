@@ -33,3 +33,9 @@ class UsuariosController
         row = result[0]
         { id: row['id'].to_i, nome:['nome'], email: row['email']}
     end
+
+    def atualizar_usuario(id, nome, email)
+        @conn.exec_params("UPDATE usuarios SET nome = $1, email = $2 WHERE id = $3 ", [nome, email, id])
+    end
+
+    
