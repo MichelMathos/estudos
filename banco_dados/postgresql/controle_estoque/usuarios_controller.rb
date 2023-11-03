@@ -41,6 +41,7 @@ class UsuariosController
     def excluir_usuario(id)
         @conn.exec_params("DELETE FROM usuarios WHERE id = $1", [id])
     end
+end
 
-    
+
 
