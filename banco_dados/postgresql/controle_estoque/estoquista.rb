@@ -9,6 +9,7 @@ class Estoquista < Usuario
 
         if produto
             produto.quantidade_em_estoque += quantidade
+            atualizar_quantidade_em_estoque_no_bd(id_produto, produto.quantidade_em_estoque)
             puts "#{quantidade} unidades do produto #{produto.nome} adicionada ao estoque."
         else
             puts "Produto não encontrado."
@@ -27,5 +28,12 @@ class Estoquista < Usuario
                 puts "#{produto.id_produto} - #{produto.nome} (#{produto.quantidade_em_estoque} unidades)"
             end
         end
+    end
+
+    private
+
+    def atualizar_quantidade_em_estoque_no_bd(id_produto, quantidade)
+        conn = PG.connect(dbname: 'nome_do_banco', user: 'usuario', poassword: 'senha')
+        conn.exec_params("UPDATE produtos SET quantidade_em_estoque = $1 WHERE id_produto = $2", [quantidade, id_produto])
     end
 end
