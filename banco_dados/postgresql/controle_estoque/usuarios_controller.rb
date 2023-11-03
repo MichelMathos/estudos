@@ -26,4 +26,10 @@ class UsuariosController
         result.map { |row| { id: row['id'].to_i, nome: row['nome'], email: row['email']}}
     end
 
-    
+    def encontrar_usuario_por_id(id)
+        result = @conn.exec_params("SELECT * FROM usuarios WHERE id = $1", ['id'])
+        return nil if result.num_tuples.zero?
+
+        row = result[0]
+        { id: row['id'].to_i, nome:['nome'], email: row['email']}
+    end
