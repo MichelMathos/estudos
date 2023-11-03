@@ -38,4 +38,9 @@ class UsuariosController
         @conn.exec_params("UPDATE usuarios SET nome = $1, email = $2 WHERE id = $3 ", [nome, email, id])
     end
 
+    def excluir_usuario(id)
+        @conn.exec_params("DELETE FROM usuarios WHERE id = $1", [id])
+    end
+
     
+
