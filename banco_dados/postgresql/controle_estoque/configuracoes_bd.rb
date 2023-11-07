@@ -1,4 +1,4 @@
-require 'acrive_record'
+require 'active_record'
 
 # Configurações da conexão com o banco de dados
 ActiveRecord::Base.establish_connection(
