@@ -1,5 +1,5 @@
 class Usuario
-    attr_acessor :id_usuario, :codigo, :senha, :nome, :cpf, :endereco, :telefone, :email
+    attr_accessor :id_usuario, :codigo, :senha, :nome, :cpf, :endereco, :telefone, :email
     
     def initialize(id_usuario, codigo, senha, nome, cpf, endereco, telefone, email)
         @id_usuario = id_usuario

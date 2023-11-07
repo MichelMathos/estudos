@@ -10,7 +10,7 @@ class Vendedor < Usuario
 
         if produto && produto.quantidade_em_estoque >= quantidade
             venda = { produto: produto, quantidade: quantidade, data: Time.now}
-            @venda << venda
+            @vendas << venda
 
             # Atualiza a quantidade em estoque do produto
             produto.quantidade_em_estoque -= quantidade
@@ -31,7 +31,7 @@ class Vendedor < Usuario
         else
             puts "Suas vendas:"
             @vendas.each_with_index do |venda, index|
-                puts "#{index + 1}. #{vendas[:produto].nome} - #{venda[:quantidade]} unidades - #{venda[:data]}"
+                puts "#{index + 1}. #{venda[:produto].nome} - #{venda[:quantidade]} unidades - #{venda[:data]}"
             end
         end
     end
