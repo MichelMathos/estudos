@@ -5,7 +5,7 @@ class Administrador < Usuario
 
     # Método específico para administrador: Adicionar um novo usuário
     def adicionar_usuario(codigo, senha, nome, cpf, endereco, telefone, email)
-        conn = PG.connect(dbname: 'nome_do_banco', user: 'usuario', password: 'senha')
+        @conn = PG.connect(dbname: 'controle_estoque', user: 'postgresql', password: 'Trainee1@')
         conn.exec_params(
             "INSERT INTO usuarios (codigo, senha, nome, cpf, endereco, telefone, email, papel) VALUES (#$1, $2, $3, $4, $5, $6, $7, $8)",
             [codigo, senha, nome, cpf, endereco, telefone, email, 'admin']
