@@ -13,7 +13,7 @@ class Usuario
     end
     
     def self.encontrar_por_codigo_e_senha(codigo, senha)
-        conn = PG.connect(dbname: 'nome_do_banco', user: 'usuario', password: 'senha')
+        @conn = PG.connect(dbname: 'controle_estoque', user: 'postgresql', password: 'Trainee1@')
         result = conn.exec_params("SELECT * FROM usuarios WHERE codigo = $1 AND senha = $2", [codigo, senha])
         conn.close 
 
