@@ -1,10 +1,40 @@
 require 'pg'
 require_relative 'sistema_controle_estoque'
 
+# Configurações do banco de dados
+dbname = 'controle_estoque'
+user = 'postgresql'
+password = 'Trainee1@'
+host = 'localhost'
+port = 5432
+
+# Tenta conectar ao banco de dados
+
+begin
+    conn = PG.connect(dbname: dbname, user: user, password: password, host: host)
+    puts "Conectado ao banco de dados #{dbname}."
+rescue PG::ConectionBad
+    # Se a conexão falhar, o banco de dados pode não existir
+    puts "Banco de dados não encontrado. Criando o banco de dados..."
+
+    # Criando uma nova conexão para o banco de dados
+    conn = PG.ci=onnect(dbname: 'posgres', user: user, password: password, host: host, port: port)
+    
+    # Cria o banco de dados se não existir
+    conn.exec("CREATE DATABASE #{dbname}")
+
+    puts "Banco de dados #{dbname} criado com sucesso."
+
+    # Fecha a conexão como banco de dados 'postgres'
+    conn.close 
+    
+
+
+end
+
 class ControleEstoque
     def initialize
         @sistema = SistemaControleEstoque.new
-        @conn = PG.connect(dbname: 'controle_estoque', user: 'postgresql', password: 'Trainee1@')
     end
 
     def iniciar
