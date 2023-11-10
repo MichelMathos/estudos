@@ -1,11 +1,26 @@
 require 'pg'
 require_relative 'sistema_controle_estoque'
 
-@conn = PG.connect(
-    dbname: 'controle_estoque', 
-    user: 'postgresql', 
-    password: 'Trainee1@',
-    host: 'localhost')
+# Configurações do banco de dados
+dbname = 'controle_estoque'
+user = 'postgresql'
+password = 'Trainee1@'
+host = 'localhost'
+port = 5432
+
+# Tenta conectar ao banco de dados
+
+begin
+    conn = PG.connect(dbname: dbname, user: user, password: password, host: host)
+    puts "Conectado ao banco de dados #{dbname}."
+rescue PG::ConectionBad
+    # Se a conexão falhar, o banco de dados pode não existir
+    puts "Banco de dados não encontrado. Criando o banco de dados..."
+
+    
+rescue => exception
+    
+end
 
 class ControleEstoque
     def initialize
