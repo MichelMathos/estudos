@@ -2,35 +2,28 @@ require 'pg'
 require_relative 'sistema_controle_estoque'
 
 # Configurações do banco de dados
-dbname = 'controle_estoque'
-user = 'postgresql'
-password = 'Trainee1@'
-host = 'localhost'
-port = 5432
+DB_CONFIG ={
+    dbname: 'controle_estoque',
+    user: 'postgres',
+    password: 'Trainee1@',
+    host: 'localhost',
+    port: 5432
+}.freeze
 
+conn = nil
 # Tenta conectar ao banco de dados
-
 begin
-    conn = PG.connect(dbname: dbname, user: user, password: password, host: host)
-    puts "Conectado ao banco de dados #{dbname}."
-rescue PG::ConectionBad
-    # Se a conexão falhar, o banco de dados pode não existir
+    conn = PG.connect(DB_CONFIG)
+    puts "Conectado ao banco de dados #{DB_CONFIG[:dbname]}."
+rescue PG::ConnectionBad
     puts "Banco de dados não encontrado. Criando o banco de dados..."
-
-    # Criando uma nova conexão para o banco de dados
-    conn = PG.ci=onnect(dbname: 'posgres', user: user, password: password, host: host, port: port)
-    
-    # Cria o banco de dados se não existir
-    conn.exec("CREATE DATABASE #{dbname}")
-
-    puts "Banco de dados #{dbname} criado com sucesso."
-
-    # Fecha a conexão como banco de dados 'postgres'
-    conn.close 
-    
-
-
+    conn = PG.connect(dbname: 'postgres', user: user, password: password, host: host, port: port)
+    conn.close
+    criar_banco_de_dados(conn, DB_CONFIG[:dbname])
+    conn = PG.connect(BD_CONFIG)
 end
+
+
 
 class ControleEstoque
     def initialize
@@ -96,17 +89,24 @@ class ControleEstoque
     # Funções que verificam as credenciais de usuário e administrador
     def verificar_credenciais_admin(codigo, senha)
         result = @conn.exec_params("SELECT * FROM usuarios WHERE codigo = $1 AND senha = $2 AND papel = 'admin'", [codigo, senha])
-        return !resulkt.num_tuples.zero?
+        return !result.num_tuples.zero?
     end
 
     def verificar_credenciais_vendedor(codigo, senha)
-        result = @conn.exec_params("SELECT * FROM usuarios where codigo = $1 AND senha = $2 AND papel = 'vendedor'", [codigo, senha])
+        result = @conn.exec_params("SELECT * FROM usuarios WHERE codigo = $1 AND senha = $2 AND papel = 'vendedor'", [codigo, senha])
         return !result.num_tuples.zero?
     end
 end
 
-# Inicializar o controle de estoque
-controle_estoque= ControleEstoque.new
-controle_estoque.iniciar
+def criar_banco_de_dados(conn,dbname)
+    begin
+        conn.exec("CREATE DATABASE #{dbname}")
+        puts "Banco de dados #{dbname} criado com sucesso."
+    rescue PG::ERROR => e
+        puts "Erro ao criar o banco de dados #{dbname}: #{e.message}"
+    end
+end
 
-    
+# Inicializar o controle de estoque
+controle_estoque = ControleEstoque.new
+controle_estoque.iniciar
