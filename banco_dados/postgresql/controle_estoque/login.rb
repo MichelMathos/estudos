@@ -17,9 +17,19 @@ rescue PG::ConectionBad
     # Se a conexão falhar, o banco de dados pode não existir
     puts "Banco de dados não encontrado. Criando o banco de dados..."
 
+    # Criando uma nova conexão para o banco de dados
+    conn = PG.ci=onnect(dbname: 'posgres', user: user, password: password, host: host, port: port)
     
-rescue => exception
+    # Cria o banco de dados se não existir
+    conn.exec("CREATE DATABASE #{dbname}")
+
+    puts "Banco de dados #{dbname} criado com sucesso."
+
+    # Fecha a conexão como banco de dados 'postgres'
+    conn.close 
     
+
+
 end
 
 class ControleEstoque
