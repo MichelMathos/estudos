@@ -42,11 +42,13 @@ def criar_tabelas(conn)
                 valor_total DECIMAL(10,2) NOT NULL
             );
 
-
-
-            
-
-
-            
-            
-            ')
+            CREATE TABLE IF NOT EXISTS itens_venda (
+                id SERIAL PRIMARY KEY,
+                id_venda INTEGER REFERENCES vendas(id),
+                id_produto INTEGER NOT NULL,
+                quantidade INTEGER NOT NULL,
+                preco_unitario DECIMAL(10,2) NOT NULL,
+                valor_total DECIMAL(10,2) NOT NULL
+            ); 
+        ')
+        
