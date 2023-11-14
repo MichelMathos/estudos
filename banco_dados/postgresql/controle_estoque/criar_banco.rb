@@ -51,4 +51,16 @@ def criar_tabelas(conn)
                 valor_total DECIMAL(10,2) NOT NULL
             ); 
         ')
-        
+        puts "Tabela criada com sucesso."
+    rescue PG::ERROR => e
+        puts "ERRO ao criar as tabelas #{e.message}"
+    end
+end
+
+# Configurações do banco de dados
+dbname = 'controle_estoque'
+user = 'postgres'
+password = 'Trainee1@'
+host = 'localhost'
+por = 5432
+
