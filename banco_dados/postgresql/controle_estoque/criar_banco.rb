@@ -25,4 +25,19 @@ def criar_tabelas(conn)
                 telefone VARCHAR(15),
                 email VARCHAR(20) NOT NULL
 
-            )')
+            );
+            
+            CREATE TABLE IF NOT EXISTS produtos (
+                id SERIAL PRIMARY KEY,
+                nome VARCHAR(100) NOT NULL,
+                marca VARCHAR(50),
+                preco DECIMAL(10,2) NOT NULL,
+                quantidade INTEGER NOT NULL
+            );
+
+            
+
+
+            
+            
+            ')
