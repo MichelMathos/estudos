@@ -35,6 +35,15 @@ def criar_tabelas(conn)
                 quantidade INTEGER NOT NULL
             );
 
+            CREATE TABLE IF NOT EXISTS vendas (
+                id SERIAL PRIMARY KEY,
+                data_venda TIMESTAMP NOT NULL,
+                id_vendedor INTEGER REFERENCES usuarios(id),
+                valor_total DECIMAL(10,2) NOT NULL
+            );
+
+
+
             
 
 
