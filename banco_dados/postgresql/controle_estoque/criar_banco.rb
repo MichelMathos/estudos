@@ -49,7 +49,13 @@ def criar_tabelas(conn)
                 quantidade INTEGER NOT NULL,
                 preco_unitario DECIMAL(10,2) NOT NULL,
                 valor_total DECIMAL(10,2) NOT NULL
-            ); 
+            );
+
+            CREATE TABLE IF NOT EXISTS usuarios (
+                id SERIAL PRIMARY KEY,
+                nome VARCHAR(100) NOT NULL,
+                email VARCHAR(100) NOT NULL
+              );
         ')
         puts "Tabela criada com sucesso."
     rescue PG::ERROR => e
@@ -64,3 +70,14 @@ password = 'Trainee1@'
 host = 'localhost'
 por = 5432
 
+# Criar banco de dados
+criar_banco_de_dados(dbname, user, password, host, port)
+
+# Conectar ao banco de dados recém criado
+conn = PG.connect(dbname: dbname, user: user, password: password, host: host, port: port)
+
+# Criar tabelas
+criar_tabelas(conn)
+
+# Fechar a conexão com o banco de dados
+conn&.close
