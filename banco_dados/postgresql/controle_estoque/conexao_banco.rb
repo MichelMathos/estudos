@@ -1,5 +1,7 @@
 require 'pg'
 
-def conectar_banco(dbname, user, password, host, port)
-    PG.connect(dbname: dbname, user: user, password: password, host: host, port: port)
+module ConexaoBanco
+    def self.conectar 
+        PG.connect(dbname: dbname, user: user, password: password, host: host, port: port)
+    end
 end

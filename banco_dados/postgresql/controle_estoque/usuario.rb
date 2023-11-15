@@ -1,3 +1,5 @@
+require 'conexao_banco'
+
 class Usuario
     attr_accessor :id_usuario, :codigo, :senha, :nome, :cpf, :endereco, :telefone, :email
     
@@ -13,12 +15,13 @@ class Usuario
     end
     
     def self.encontrar_por_codigo_e_senha(codigo, senha)
-        @conn = PG.connect(dbname: 'controle_estoque', user: 'postgresql', password: 'Trainee1@')
-        result = conn.exec_params("SELECT * FROM usuarios WHERE codigo = $1 AND senha = $2", [codigo, senha])
-        conn.close 
+        conn = ConexaoBanco.conectar
 
-        if result.num_tuples.zero?
-            nil?
+        begin
+            result = conn.exec_params("SELECT * FROM usuarios WHERE codigo = $1 AND senha = $2", [codigo, senha])
+        
+            if result.num_tuples.zero?
+                nil
         else
             usuario_data = result[0]
             Usuario.new(
@@ -32,6 +35,8 @@ class Usuario
                 usuario_data['email']
             )
         end
+    ensure
+        conn&.close
     end
 end
 
