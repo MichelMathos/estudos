@@ -1,13 +1,14 @@
-require 'conexão_banco'
-require_relative 'sistema_controle_estoque'
+require_relative '/home/michel/Documentos/estudos/banco_dados/postgresql/controle_estoque/conexao_banco.rb'
+require 'sistema_controle_estoque'
 
 class ControleEstoque
     def initialize
         @sistema = SistemaControleEstoque.new
         @conn = ConexaoBanco.conectar 
         puts "Conectado ao Banco de dados #{ConexaoBanco::DB_CONFIG[:dbname]}"
-    rescue PG::ConnectionBad
-        puts "Banco de dados não encontrado. Criando banco de dados..."
+    rescue PG::ConnectionBad => e
+        puts "Erro de conexão com o banco de dados: #{e.message}"
+        puts "Banco de dados não encontrado. Criando Banco de dados..."
         criar_banco_de_dados
         retry
     end
