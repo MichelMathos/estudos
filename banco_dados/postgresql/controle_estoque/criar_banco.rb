@@ -2,10 +2,10 @@ require 'pg'
 
 def criar_banco_de_dados(dbname, user, password, host, port)
     begin
-        conn = PG.connect(dbname: 'postgres', user: 'user', password: 'password', host: 'host', port: 'port')
+        conn = PG.connect(dbname: 'postgres', user: 'user', password: 'password', host: 'host', port: port)
         conn.exec("CREATE DATABASE #{dbname}")
         puts "Banco de dados #{dbname} criado com sucesso."
-    rescue PG::Erros => e
+    rescue PG::Error => e
         puts "Erro ao criar o banco de dados #{dbname}: #{e.message}"
     ensure
         conn&.close
@@ -68,7 +68,7 @@ dbname = 'controle_estoque'
 user = 'postgres'
 password = 'Trainee1@'
 host = 'localhost'
-por = 5432
+port = 5432
 
 # Criar banco de dados
 criar_banco_de_dados(dbname, user, password, host, port)
