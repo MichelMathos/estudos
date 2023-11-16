@@ -1,7 +1,17 @@
 require 'pg'
+require_relative 'criar_banco'
+
 
 module ConexaoBanco
-    def self.conectar 
-        PG.connect(dbname: dbname, user: user, password: password, host: host, port: port)
-    end
+  DB_CONFIG = {
+    dbname: 'controle_estoque',
+    user: 'postgres',
+    password: 'Trainee1@',
+    host: 'localhost',
+    port: 5432
+  }.freeze
+
+  def self.conectar 
+    PG.connect(DB_CONFIG)
+  end
 end
