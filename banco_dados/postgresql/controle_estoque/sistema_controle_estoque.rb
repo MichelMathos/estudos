@@ -6,7 +6,7 @@ class SistemaControleEstoque
     def initialize
         @usuarios = []
         @produtos = []
-        @conn = PG.connect(dbname: 'controle_estoque', user: 'postgresql', password: 'Trainee1@')
+        @conn = PG.connect(dbname: 'controle_estoque', user: 'postgres', password: 'Trainee1@')
     end
     
     def self.instance
