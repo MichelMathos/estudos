@@ -1,7 +1,7 @@
 require 'pg'
 
 # Conexão com o banco de dados
-conn = PG.connect(dbname: 'controle_estoque', user: 'postgresql', password: 'Trainee1@')
+conn = PG.connect(dbname: 'controle_estoque', user: 'postgres', password: 'Trainee1@')
 
 class UsuariosController
     def initialize(conn)

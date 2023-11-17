@@ -33,7 +33,7 @@ class Estoquista < Usuario
     private
 
     def atualizar_quantidade_em_estoque_no_bd(id_produto, quantidade)
-        @conn = PG.connect(dbname: 'controle_estoque', user: 'postgresql', password: 'Trainee1@')
+        @conn = PG.connect(dbname: 'controle_estoque', user: 'postgres', password: 'Trainee1@')
         conn.exec_params("UPDATE produtos SET quantidade_em_estoque = $1 WHERE id_produto = $2", [quantidade, id_produto])
     end
 end
