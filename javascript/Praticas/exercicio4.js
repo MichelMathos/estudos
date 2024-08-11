@@ -2,13 +2,13 @@
 Crie uma função que escfeva seu nome
 */
 
-function meuNome(){
-    console.log('Michel Matos 1');
+function escreverNome(nome){
+    console.log('Meu nome é ' + nome);
 }
- meuNome();
+ escreverNome('Michel Matos 1');
 
  // invocada imediatamente
 
- (function (){
-    console.log('Michel Matos 2');
-})();
+ (function (nome){
+    console.log('Meu nome é ' + nome);
+})('Michel Matos 2');
