@@ -1,9 +1,12 @@
 // CONSTRUCTOR
-
-//classe é o modelo do objeto, como ele deve ser e se comportar, é a definição da estrutura que será utilizada por um objeto
+// A importância de definir um constructor está diretamente relacionada às
+// necessidades de inicialização dos objetos criados a partir da classe.
+// Isso permite que cada instância da classe tenha valores personalizados.
+// É importante salieantar que todas as instâncias passam pelo constructor, a diferença está em se definir explicitamente ou não
+// A definição explicita está presente no exemplo abaixo. Quando não explícita o próprio javascript cria o constructor de de forma "anônima"
 class Pessoa {
     
-    constructor (nome, idade) { //para estes casos, as funções não precisam ser literais, pois "descrever" passa ser um método
+    constructor (nome, idade) { //
        this.nome  = nome;
        this.idade = idade;
        this.anoDeNascimento = 2024 - idade;
