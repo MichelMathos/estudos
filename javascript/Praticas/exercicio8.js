@@ -20,12 +20,33 @@
             calculoIMC () {
                 return this.peso / (this.altura * this.altura);
             }
+
+            diagnosticoIMC (imc) {
+                if (imc >= 16.0 && imc <= 16.9) {
+                    console.log ('Muito abaixo do peso');
+                } else if (imc >=17.0 && imc <= 18.4) {
+                    console.log ('Abaixo do peso');
+                } else if (imc >= 18.5 && imc <= 24.9) {
+                    console.log ('Peso normal');
+                } else if (imc >= 25.0 && 29.0) {
+                    console.log ('Acima do peso');
+                } else if (imc >= 30.0 && imc <= 34.9) {
+                    console.log ('Obesidade grau I');
+                } else if (imc >= 35 && imc <= 40.0) {
+                    console.log('Obesidade grau II');
+                } else if (imc > 40) {
+                    console.log ('Obesidade grau III'); 
+                } else {
+                    console.log ('Resultado inválido');
+                }   
+            }
         }
 
-        const luis = new Pessoa ('Luis', 100, 1.80);
-        console.log (luis);
-        const imc = luis.calculoIMC(100, 1.80);
-        console.log (`O IMC de ${luis.nome} é de ${imc.toFixed(2)}`);
+        const jose = new Pessoa ('José', 70, 1.75);
+        console.log (jose);
+        const imc = jose.calculoIMC();
+        console.log (`O IMC de ${jose.nome} é de ${imc.toFixed(2)}`);
+        jose.diagnosticoIMC(imc);
 
 
         
